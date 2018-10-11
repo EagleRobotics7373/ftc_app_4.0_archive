@@ -27,16 +27,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.LinearOpModes;
+package org.firstinspires.ftc.teamcode.TeleOpModes;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 
 /**
@@ -52,7 +48,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+@TeleOp(name="Basic: Linear OpMode", group="Iterative Opmode")
 //@Disabled
 public class BasicOpMode_Linear extends LinearOpMode {
 
@@ -92,23 +88,18 @@ public class BasicOpMode_Linear extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-
-        frontleft.setPower(gamepad1.right_stick_y);
-        backleft.setPower(gamepad1.right_stick_y);
-        frontright.setPower(gamepad1.right_stick_y);
-        backright.setPower(gamepad1.right_stick_y);
-
-        sleep(2000);
-
-        power = 0.0;
-
-        frontleft.setPower(power);
-        backleft.setPower(power);
-        frontright.setPower(power);
-        backright.setPower(power);
-
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+
+            frontleft.setPower(gamepad1.right_stick_y);
+            backleft.setPower(gamepad1.right_stick_y);
+            frontright.setPower(gamepad1.right_stick_y);
+            backright.setPower(gamepad1.right_stick_y);
+
+            frontleft.setPower(gamepad1.right_stick_x);
+            backleft.setPower(gamepad1.right_stick_x);
+            frontright.setPower(-gamepad1.right_stick_x);
+            backright.setPower(-gamepad1.right_stick_x);
 
                       // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
