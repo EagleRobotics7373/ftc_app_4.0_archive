@@ -107,8 +107,13 @@ public class TeleOpLeagueMeet1 extends OpMode {
         telemetry.addData("z", z);
 
         //Tape measure spool actions
-        frontTapeMeasure.setPower(MathOperations.rangeClip(gamepad2.left_stick_y, -1, 1));
-        backTapeMeasure.setPower(MathOperations.rangeClip(gamepad2.right_stick_y, -1, 1));
+        float frontSpoolSpeed = MathOperations.rangeClip(gamepad2.left_stick_y, -1, 1);
+        float backSpoolSpeed = MathOperations.rangeClip(gamepad2.right_stick_y, -1, 1);
+        frontTapeMeasure.setPower(frontSpoolSpeed);
+        backTapeMeasure.setPower(backSpoolSpeed);
+        telemetry.addData("Front spool speed", frontSpoolSpeed);
+        telemetry.addData("Back spool speed", backSpoolSpeed);
+
     }
 
 }
