@@ -90,12 +90,12 @@ public class HolonomicTestOpMode extends OpMode {
     @Override
     public void loop(){
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Speed", driveSpeed==1?"Slow":driveSpeed==2?"Medium":"Fast");
+        telemetry.addData("Speed", driveSpeed);
         if(gamepad1.dpad_up && driveSpeed<3) driveSpeed++;
         if(gamepad1.dpad_down && driveSpeed>1) driveSpeed--;
         // Run using cubic and Y reversed
-        holonomic.run(MathOperations.pow(gamepad1.left_stick_y, 3),
-                      MathOperations.pow(gamepad1.left_stick_x, 3),
+        holonomic.run(MathOperations.pow(gamepad1.left_stick_x, 3),
+                      MathOperations.pow(gamepad1.left_stick_y, 3),
                       MathOperations.pow(gamepad1.right_stick_x, 3));
     }
 

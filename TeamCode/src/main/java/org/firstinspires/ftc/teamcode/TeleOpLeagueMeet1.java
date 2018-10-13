@@ -29,7 +29,6 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -38,9 +37,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  * Demonstrates empty OpMode
  */
-@TeleOp(name = "Basic Motor Test", group = "Test")
-@Disabled
-public class BasicMotorTest extends OpMode {
+@TeleOp(name = "League Meet 1 TeleOp", group = "League Meets")
+//@Disabled
+public class TeleOpLeagueMeet1 extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -48,6 +47,9 @@ public class BasicMotorTest extends OpMode {
     DcMotor backLeftMotor;
     DcMotor frontRightMotor;
     DcMotor backRightMotor;
+
+    DcMotor frontTapeMeasure;
+    DcMotor backTapeMeasure;
 
     @Override
     public void init() {
@@ -58,6 +60,9 @@ public class BasicMotorTest extends OpMode {
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
+
+        frontTapeMeasure = hardwareMap.dcMotor.get("frontTapeMeasure");
+        backTapeMeasure = hardwareMap.dcMotor.get("backTapeMeasure");
 
     }
 
@@ -83,16 +88,27 @@ public class BasicMotorTest extends OpMode {
      * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#loop()
      */
     @Override
-    public void loop(){
+    public void loop() {
+        telemetry.addData("Status", "Run Time: " + runtime.toString());
 
-            float y = gamepad1.left_stick_y;
-            frontLeftMotor.setPower(y);
-            frontRightMotor.setPower(y);
-            backLeftMotor.setPower(y);
-            backRightMotor.setPower(y);
-            telemetry.addData("y",y);
+        // Drivetrain actions - Run using cubic and Y reversed
+        float x = gamepad1.left_stick_x;
+        x = MathOperations.rangeClip(x, -1, 1);
+        float y = gamepad1.left_stick_y;
+        y = -MathOperations.rangeClip(y, -1, 1);
+        float z = gamepad1.right_stick_x;
+        z = MathOperations.rangeClip(z, -1, 1);
+        frontLeftMotor.setPower(x - y + z);
+        frontRightMotor.setPower(x + y + z);
+        backLeftMotor.setPower(-x + y + z);
+        backRightMotor.setPower(-x - y + z);
+        telemetry.addData("x", x);
+        telemetry.addData("y", y);
+        telemetry.addData("z", z);
 
-
+        //Tape measure spool actions
+        frontTapeMeasure.setPower(MathOperations.rangeClip(gamepad2.left_stick_y, -1, 1));
+        backTapeMeasure.setPower(MathOperations.rangeClip(gamepad2.right_stick_y, -1, 1));
     }
 
 }
