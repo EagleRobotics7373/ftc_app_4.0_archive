@@ -2,23 +2,20 @@ package org.firstinspires.ftc.teamcode.leaguemeetopmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public abstract class LeagueMeet1OpMode extends OpMode {
-    protected ElapsedTime runtime = new ElapsedTime();
+public class LeagueMeet1Robot {
 
-    protected DcMotor frontLeftMotor;
-    protected DcMotor backLeftMotor;
-    protected DcMotor frontRightMotor;
-    protected DcMotor backRightMotor;
+    public DcMotor frontLeftMotor;
+    public DcMotor backLeftMotor;
+    public DcMotor frontRightMotor;
+    public DcMotor backRightMotor;
 
-    protected DcMotor frontTapeMeasure;
-    protected DcMotor backTapeMeasure;
+    public DcMotor frontTapeMeasure;
+    public DcMotor backTapeMeasure;
 
-    @Override
-    public void init() {
-        telemetry.addData("Status", "Initialized");
-
+    public LeagueMeet1Robot(HardwareMap hardwareMap) {
         frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");

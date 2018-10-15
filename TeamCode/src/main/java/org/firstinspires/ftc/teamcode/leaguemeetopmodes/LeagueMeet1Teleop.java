@@ -31,7 +31,6 @@ package org.firstinspires.ftc.teamcode.leaguemeetopmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import static org.firstinspires.ftc.teamcode.library.functions.MathOperations.rangeClip;
@@ -39,9 +38,20 @@ import static org.firstinspires.ftc.teamcode.library.functions.MathOperations.ra
 /**
  * Demonstrates empty OpMode
  */
-@TeleOp(name = "League Meet 1 TeleOp", group = "League Meets")
+@TeleOp(name = "League Meet 1 Teleop", group = "League Meets")
 //@Disabled
-public class LeagueMeet1Teleop extends LeagueMeet1OpMode {
+public class LeagueMeet1Teleop extends OpMode {
+
+    private ElapsedTime runtime = new ElapsedTime();
+    private LeagueMeet1Robot robot = new LeagueMeet1Robot(hardwareMap);
+
+    /*
+     * Code to run ONCE when the driver hits INIT
+     */
+    @Override
+    public void init() {
+        telemetry.addData("Status", "Initialized");
+    }
 
     /*
      * Code to run when the op mode is first enabled goes here
@@ -75,10 +85,10 @@ public class LeagueMeet1Teleop extends LeagueMeet1OpMode {
         y = -rangeClip(y, -1, 1);
         float z = gamepad1.right_stick_x;
         z = rangeClip(z, -1, 1);
-        frontLeftMotor.setPower(x - y + z);
-        frontRightMotor.setPower(x + y + z);
-        backLeftMotor.setPower(-x + y + z);
-        backRightMotor.setPower(-x - y + z);
+        robot.frontLeftMotor.setPower(x - y + z);
+        robot.frontRightMotor.setPower(x + y + z);
+        robot.backLeftMotor.setPower(-x + y + z);
+        robot.backRightMotor.setPower(-x - y + z);
         telemetry.addData("x", x);
         telemetry.addData("y", y);
         telemetry.addData("z", z);
@@ -86,8 +96,8 @@ public class LeagueMeet1Teleop extends LeagueMeet1OpMode {
         //Tape measure spool actions
         float frontSpoolSpeed = rangeClip(gamepad2.left_stick_y, -1, 1);
         float backSpoolSpeed = rangeClip(gamepad2.right_stick_y, -1, 1);
-        frontTapeMeasure.setPower(frontSpoolSpeed);
-        backTapeMeasure.setPower(backSpoolSpeed);
+        robot.frontTapeMeasure.setPower(frontSpoolSpeed);
+        robot.backTapeMeasure.setPower(backSpoolSpeed);
         telemetry.addData("Front spool speed", frontSpoolSpeed);
         telemetry.addData("Back spool speed", backSpoolSpeed);
 
