@@ -27,21 +27,21 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.testopmodes;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.MathOperations;
+
+import org.firstinspires.ftc.teamcode.library.functions.MathOperations;
 
 /**
  * Demonstrates empty OpMode
  */
-@TeleOp(name = "Holonomic Test OpMode", group = "Test")
+@TeleOp(name = "Holonomic Simple Test OpMode", group = "Test")
 //@Disabled
-public class HolonomicTestOpMode extends OpMode {
+public class HolonomicSimpleOpMode extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -50,8 +50,6 @@ public class HolonomicTestOpMode extends OpMode {
     DcMotor frontRightMotor;
     DcMotor backRightMotor;
 
-    Holonomic holonomic;
-    int driveSpeed;
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
@@ -62,8 +60,6 @@ public class HolonomicTestOpMode extends OpMode {
         frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
 
-        holonomic = new Holonomic(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
-        driveSpeed = 1;
     }
 
     /*
@@ -90,13 +86,21 @@ public class HolonomicTestOpMode extends OpMode {
     @Override
     public void loop(){
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Speed", driveSpeed);
-        if(gamepad1.dpad_up && driveSpeed<3) driveSpeed++;
-        if(gamepad1.dpad_down && driveSpeed>1) driveSpeed--;
         // Run using cubic and Y reversed
-        holonomic.run(MathOperations.pow(gamepad1.left_stick_x, 3),
-                      MathOperations.pow(gamepad1.left_stick_y, 3),
-                      MathOperations.pow(gamepad1.right_stick_x, 3));
+        float x = gamepad1.left_stick_x;
+        x = MathOperations.rangeClip(x, -1, 1);
+        float y = gamepad1.left_stick_y;
+        y = -MathOperations.rangeClip(y, -1, 1);
+        float z = gamepad1.right_stick_x;
+        z = MathOperations.rangeClip(z, -1, 1);
+        frontLeftMotor.setPower(x - y + z);
+        frontRightMotor.setPower(x + y + z);
+        backLeftMotor.setPower(-x + y + z);
+        backRightMotor.setPower(-x - y + z);
+        telemetry.addData("x", x);
+        telemetry.addData("y", y);
+        telemetry.addData("z", z);
+
     }
 
 }

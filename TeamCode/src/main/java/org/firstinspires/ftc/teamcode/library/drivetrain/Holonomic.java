@@ -1,8 +1,8 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.library.drivetrain;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.MathOperations;
+import org.firstinspires.ftc.teamcode.library.functions.MathOperations;
 
 /**
  * Created by Kk4jr on 9/28/2017.

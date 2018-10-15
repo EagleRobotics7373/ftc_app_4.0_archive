@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.library.functions;
 
 /**
  * Created by Kk4jr on 9/28/2017.

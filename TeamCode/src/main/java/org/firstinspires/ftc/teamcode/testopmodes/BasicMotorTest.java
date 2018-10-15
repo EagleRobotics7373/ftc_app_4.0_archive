@@ -27,8 +27,9 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.testopmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -37,9 +38,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 /**
  * Demonstrates empty OpMode
  */
-@TeleOp(name = "Holonomic Simple Test OpMode", group = "Test")
-//@Disabled
-public class HolonomicSimpleOpMode extends OpMode {
+@TeleOp(name = "Basic Motor Test", group = "Test")
+@Disabled
+public class BasicMotorTest extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -83,21 +84,14 @@ public class HolonomicSimpleOpMode extends OpMode {
      */
     @Override
     public void loop(){
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        // Run using cubic and Y reversed
-        float x = gamepad1.left_stick_x;
-        x = MathOperations.rangeClip(x, -1, 1);
-        float y = gamepad1.left_stick_y;
-        y = -MathOperations.rangeClip(y, -1, 1);
-        float z = gamepad1.right_stick_x;
-        z = MathOperations.rangeClip(z, -1, 1);
-        frontLeftMotor.setPower(x - y + z);
-        frontRightMotor.setPower(x + y + z);
-        backLeftMotor.setPower(-x + y + z);
-        backRightMotor.setPower(-x - y + z);
-        telemetry.addData("x", x);
-        telemetry.addData("y", y);
-        telemetry.addData("z", z);
+
+            float y = gamepad1.left_stick_y;
+            frontLeftMotor.setPower(y);
+            frontRightMotor.setPower(y);
+            backLeftMotor.setPower(y);
+            backRightMotor.setPower(y);
+            telemetry.addData("y",y);
+
 
     }
 

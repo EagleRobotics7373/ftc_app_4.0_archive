@@ -27,44 +27,21 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.leaguemeetopmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import static org.firstinspires.ftc.teamcode.library.functions.MathOperations.rangeClip;
+
 /**
  * Demonstrates empty OpMode
  */
 @TeleOp(name = "League Meet 1 TeleOp", group = "League Meets")
 //@Disabled
-public class TeleOpLeagueMeet1 extends OpMode {
-
-    private ElapsedTime runtime = new ElapsedTime();
-
-    DcMotor frontLeftMotor;
-    DcMotor backLeftMotor;
-    DcMotor frontRightMotor;
-    DcMotor backRightMotor;
-
-    DcMotor frontTapeMeasure;
-    DcMotor backTapeMeasure;
-
-    @Override
-    public void init() {
-        telemetry.addData("Status", "Initialized");
-
-        // Get motors from map
-        frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-        backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
-        frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
-        backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-
-        frontTapeMeasure = hardwareMap.dcMotor.get("frontTapeMeasure");
-        backTapeMeasure = hardwareMap.dcMotor.get("backTapeMeasure");
-
-    }
+public class LeagueMeet1Teleop extends LeagueMeet1OpMode {
 
     /*
      * Code to run when the op mode is first enabled goes here
@@ -93,11 +70,11 @@ public class TeleOpLeagueMeet1 extends OpMode {
 
         // Drivetrain actions - Run using cubic and Y reversed
         float x = gamepad1.left_stick_x;
-        x = MathOperations.rangeClip(x, -1, 1);
+        x = rangeClip(x, -1, 1);
         float y = gamepad1.left_stick_y;
-        y = -MathOperations.rangeClip(y, -1, 1);
+        y = -rangeClip(y, -1, 1);
         float z = gamepad1.right_stick_x;
-        z = MathOperations.rangeClip(z, -1, 1);
+        z = rangeClip(z, -1, 1);
         frontLeftMotor.setPower(x - y + z);
         frontRightMotor.setPower(x + y + z);
         backLeftMotor.setPower(-x + y + z);
@@ -107,13 +84,15 @@ public class TeleOpLeagueMeet1 extends OpMode {
         telemetry.addData("z", z);
 
         //Tape measure spool actions
-        float frontSpoolSpeed = MathOperations.rangeClip(gamepad2.left_stick_y, -1, 1);
-        float backSpoolSpeed = MathOperations.rangeClip(gamepad2.right_stick_y, -1, 1);
+        float frontSpoolSpeed = rangeClip(gamepad2.left_stick_y, -1, 1);
+        float backSpoolSpeed = rangeClip(gamepad2.right_stick_y, -1, 1);
         frontTapeMeasure.setPower(frontSpoolSpeed);
         backTapeMeasure.setPower(backSpoolSpeed);
         telemetry.addData("Front spool speed", frontSpoolSpeed);
         telemetry.addData("Back spool speed", backSpoolSpeed);
 
+        //Update telemetry
+        telemetry.update();
     }
 
 }
