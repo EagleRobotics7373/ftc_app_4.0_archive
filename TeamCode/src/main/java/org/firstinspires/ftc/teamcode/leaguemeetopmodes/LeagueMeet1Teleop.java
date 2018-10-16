@@ -82,13 +82,13 @@ public class LeagueMeet1Teleop extends OpMode {
         float x = gamepad1.left_stick_x;
         x = rangeClip(x, -1, 1);
         float y = gamepad1.left_stick_y;
-        y = -rangeClip(y, -1, 1);
+        y = rangeClip(y, -1, 1);
         float z = gamepad1.right_stick_x;
         z = rangeClip(z, -1, 1);
-        robot.frontLeftMotor.setPower(x - y + z);
-        robot.frontRightMotor.setPower(x + y + z);
-        robot.backLeftMotor.setPower(-x + y + z);
-        robot.backRightMotor.setPower(-x - y + z);
+        robot.frontLeftMotor.setPower(x + y + z);
+        robot.frontRightMotor.setPower(x - y + z);
+        robot.backLeftMotor.setPower(-x - y + z);
+        robot.backRightMotor.setPower(-x + y + z);
         telemetry.addData("x", x);
         telemetry.addData("y", y);
         telemetry.addData("z", z);
