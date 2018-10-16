@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.library.drivetrain.Holonomic;
+
 public class LeagueMeet1Robot {
 
     public DcMotor frontLeftMotor;
@@ -14,6 +16,8 @@ public class LeagueMeet1Robot {
 
     public DcMotor frontTapeMeasure;
     public DcMotor backTapeMeasure;
+
+    public Holonomic holonomic;
 
     public LeagueMeet1Robot(HardwareMap hardwareMap) {
         frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");

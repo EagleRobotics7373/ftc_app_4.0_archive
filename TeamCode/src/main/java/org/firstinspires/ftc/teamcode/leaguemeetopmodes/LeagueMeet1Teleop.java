@@ -78,20 +78,8 @@ public class LeagueMeet1Teleop extends OpMode {
     public void loop() {
         telemetry.addData("Status", "Run Time: " + runtime.toString());
 
-        // Drivetrain actions - Run using cubic and Y reversed
-        float x = gamepad1.left_stick_x;
-        x = rangeClip(x, -1, 1);
-        float y = gamepad1.left_stick_y;
-        y = rangeClip(y, -1, 1);
-        float z = gamepad1.right_stick_x;
-        z = rangeClip(z, -1, 1);
-        robot.frontLeftMotor.setPower(x + y + z);
-        robot.frontRightMotor.setPower(x - y + z);
-        robot.backLeftMotor.setPower(-x - y + z);
-        robot.backRightMotor.setPower(-x + y + z);
-        telemetry.addData("x", x);
-        telemetry.addData("y", y);
-        telemetry.addData("z", z);
+        // Drivetrain actions
+        robot.holonomic.runFromGamepadInput(gamepad1);
 
         //Tape measure spool actions
         float frontSpoolSpeed = rangeClip(gamepad2.left_stick_y, -1, 1);

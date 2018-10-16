@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.library.drivetrain;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.library.functions.MathOperations;
 
@@ -41,6 +42,12 @@ public class Holonomic extends Drivetrain {
         leftRearMotor.setPower(leftRearPower);
         rightFrontMotor.setPower(rightFrontPower);
         rightRearMotor.setPower(rightRearPower);
+    }
+
+    public void runFromGamepadInput(Gamepad gamepad) {
+        run(gamepad.left_stick_x,
+            gamepad.left_stick_y,
+            gamepad.right_stick_x);
     }
 
     /**
