@@ -31,10 +31,10 @@ public class Holonomic extends Drivetrain {
      */
     public void run(double x, double y, double z){
         x = MathOperations.rangeClip(x, -1, 1);
-        y = MathOperations.rangeClip(y, -1, 1);
+        y = -MathOperations.rangeClip(y, -1, 1);
         z = MathOperations.rangeClip(z, -1, 1);
 
-        double leftFrontPower = x + y + z;
+        double leftFrontPower = x - y + z;
         double leftRearPower = -x - y + z;
         double rightFrontPower = x - y + z;
         double rightRearPower = -x + y + z;

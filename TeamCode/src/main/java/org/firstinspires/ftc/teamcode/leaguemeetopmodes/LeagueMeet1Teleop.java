@@ -51,9 +51,8 @@ public class LeagueMeet1Teleop extends OpMode {
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
-        try{
-            robot = new LeagueMeet1Robot(hardwareMap);
-        } catch (Exception e){ telemetry.addData("error", e.getMessage());}
+        robot = new LeagueMeet1Robot(hardwareMap);
+
 
     }
 

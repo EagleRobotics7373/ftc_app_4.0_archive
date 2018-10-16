@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 //@Disabled
 public class LeagueMeet1Auto extends LinearOpMode {
 
-    LeagueMeet1Robot robot = new LeagueMeet1Robot(hardwareMap);
+    LeagueMeet1Robot robot;
 
     private Color teamColor = Color.NULL;
     private StartingPosition startingPosition = StartingPosition.NULL;
@@ -20,15 +20,17 @@ public class LeagueMeet1Auto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         while(!isStarted()) {
-            if (gamepad1.x) teamColor = Color.BLUE;
-            if (gamepad1.b) teamColor = Color.RED;
-
-            if (gamepad1.dpad_left)  startingPosition = StartingPosition.LEFT;
-            if (gamepad1.dpad_right) startingPosition = StartingPosition.RIGHT;
-
-            telemetry.addData("Alliance Color", teamColor);
-            telemetry.addData("Starting Position", startingPosition);
+            robot = new LeagueMeet1Robot(hardwareMap);
+//            if (gamepad1.x) teamColor = Color.BLUE;
+//            if (gamepad1.b) teamColor = Color.RED;
+//
+//            if (gamepad1.dpad_left)  startingPosition = StartingPosition.LEFT;
+//            if (gamepad1.dpad_right) startingPosition = StartingPosition.RIGHT;
+//
+//            telemetry.addData("Alliance Color", teamColor);
+//            telemetry.addData("Starting Position", startingPosition);
         }
+
 
     }
 
