@@ -27,5 +27,7 @@ public class LeagueMeet1Robot {
 
         frontTapeMeasure = hardwareMap.dcMotor.get("frontTapeMeasure");
         backTapeMeasure = hardwareMap.dcMotor.get("backTapeMeasure");
+
+        holonomic = new Holonomic(frontLeftMotor, backLeftMotor,frontRightMotor,backRightMotor);
     }
 }

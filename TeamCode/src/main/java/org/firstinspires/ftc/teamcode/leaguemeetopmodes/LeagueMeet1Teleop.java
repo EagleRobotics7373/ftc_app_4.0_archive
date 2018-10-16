@@ -43,7 +43,7 @@ import static org.firstinspires.ftc.teamcode.library.functions.MathOperations.ra
 public class LeagueMeet1Teleop extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private LeagueMeet1Robot robot = new LeagueMeet1Robot(hardwareMap);
+    private LeagueMeet1Robot robot;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -51,6 +51,10 @@ public class LeagueMeet1Teleop extends OpMode {
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
+        try{
+            robot = new LeagueMeet1Robot(hardwareMap);
+        } catch (Exception e){ telemetry.addData("error", e.getMessage());}
+
     }
 
     /*
@@ -82,8 +86,8 @@ public class LeagueMeet1Teleop extends OpMode {
         robot.holonomic.runFromGamepadInput(gamepad1);
 
         //Tape measure spool actions
-        float frontSpoolSpeed = rangeClip(gamepad2.left_stick_y, -1, 1);
-        float backSpoolSpeed = rangeClip(gamepad2.right_stick_y, -1, 1);
+        float frontSpoolSpeed = -rangeClip(gamepad2.left_stick_y, -1, 1);
+        float backSpoolSpeed = -rangeClip(gamepad2.right_stick_y, -1, 1);
         robot.frontTapeMeasure.setPower(frontSpoolSpeed);
         robot.backTapeMeasure.setPower(backSpoolSpeed);
         telemetry.addData("Front spool speed", frontSpoolSpeed);
