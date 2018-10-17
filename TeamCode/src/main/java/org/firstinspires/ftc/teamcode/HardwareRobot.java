@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class HardwareRobot
 {
@@ -10,6 +12,11 @@ public class HardwareRobot
     public DcMotor  backleft = null;
     public DcMotor  frontright = null;
     public DcMotor  backright = null;
+    public Servo servoleft = null;
+    public Servo servoright = null;
+    public NormalizedColorSensor CSright = null;
+    public NormalizedColorSensor CScenter = null;
+    public NormalizedColorSensor CSleft = null;
 
     /* local OpMode members. */
     HardwareMap hwMap =  null;
@@ -29,6 +36,11 @@ public class HardwareRobot
         backleft = hwMap.get(DcMotor.class, "backleft");
         frontright = hwMap.get(DcMotor.class, "frontright");
         backright = hwMap.get(DcMotor.class, "backright");
+        servoleft = hwMap.get(Servo.class, "servoleft");
+        servoright = hwMap.get(Servo.class, "servoright");
+        CSright = hwMap.get(NormalizedColorSensor.class, "CSright");
+        CScenter = hwMap.get(NormalizedColorSensor.class, "CScenter");
+        CSleft = hwMap.get(NormalizedColorSensor.class, "CSleft");
 
         frontleft.setDirection(DcMotor.Direction.REVERSE);
         backleft.setDirection(DcMotor.Direction.REVERSE);

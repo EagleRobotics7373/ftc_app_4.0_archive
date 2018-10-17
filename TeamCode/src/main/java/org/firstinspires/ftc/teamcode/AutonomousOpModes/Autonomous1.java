@@ -3,27 +3,27 @@ package org.firstinspires.ftc.teamcode.AutonomousOpModes;
 /* Imports all the neccessary robotcore files and configured hardware in HardwareRobot. */
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.HardwareRobot;
 
-@Autonomous(name="PushBotAutonomous")
+@Autonomous(name="Autonomous1")
 //@Disabled
-public class PushBotAutonomous extends LinearOpMode {
+public class Autonomous1 extends LinearOpMode {
 
     HardwareRobot robot = new HardwareRobot();
-    private ElapsedTime     runtime = new ElapsedTime();
+    private ElapsedTime runtime = new ElapsedTime();
 
-    static final double     COUNTS_PER_MOTOR_REV    = 288 ;    // eg: TETRIX Motor Encoder
-    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV ) / (WHEEL_DIAMETER_INCHES * 3.1415);
-    static final double     DRIVE_SPEED             = 0.6;
+    static final double COUNTS_PER_MOTOR_REV = 288;    // eg: TETRIX Motor Encoder
+    static final double WHEEL_DIAMETER_INCHES = 4.0;
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV) / (WHEEL_DIAMETER_INCHES * 3.1415);
+    static final double DRIVE_SPEED = 0.6;
 
     @Override
-    public void runOpMode(){
+    public void runOpMode() {
 
         robot.init(hardwareMap);
 
@@ -39,14 +39,36 @@ public class PushBotAutonomous extends LinearOpMode {
 
         waitForStart();
 
-        encoderDrive(DRIVE_SPEED, 12,12, 5);
+        encoderDrive(DRIVE_SPEED, 12, 12);
+
+        robot.servoleft.setPosition(.5);
+        robot.servoright.setPosition(.5);
+
+        NormalizedRGBA color_left = robot.CSleft.getNormalizedColors();
+        NormalizedRGBA color_center = robot.CScenter.getNormalizedColors();
+        NormalizedRGBA color_right = robot.CSright.getNormalizedColors();
+
+        if (color_left.red > color_center.red && color_left.red > color_right.red) {
+            MotorPower(0,-1,0,1);
+            sleep(100);
+            encoderDrive(DRIVE_SPEED, 12, 12);
+        }
+        if (color_center.red > color_left.red && color_center.red > color_right.red) {
+            MotorPower(1, 1, 1, 1);
+            sleep(1000);
+
+        }
+        if (color_right.red > color_center.red && color_right.red > color_left.red) {
+            MotorPower(0, 1, 0, -1);
+            sleep(100);
+            MotorPower(0,0,0,0);
+            sleep(250);
+            encoderDrive(DRIVE_SPEED, 12, 12);
+        }
 
     }
 
-    public void encoderDrive(double speed,
-                             double leftinches, double rightinches,
-                             double timeoutseconds) {
-
+    public void encoderDrive(double speed, double leftinches, double rightinches) {
 
         int frontleftTarget;
         int backleftTarget;
@@ -60,6 +82,7 @@ public class PushBotAutonomous extends LinearOpMode {
             backleftTarget = robot.backleft.getCurrentPosition() + (int) (leftinches * COUNTS_PER_INCH);
             frontrightTarget = robot.frontright.getCurrentPosition() + (int) (rightinches * COUNTS_PER_INCH);
             backrightTarget = robot.backright.getCurrentPosition() + (int) (rightinches * COUNTS_PER_INCH);
+
             robot.frontleft.setTargetPosition(frontleftTarget);
             robot.backleft.setTargetPosition(backleftTarget);
             robot.frontright.setTargetPosition(frontrightTarget);
@@ -76,24 +99,15 @@ public class PushBotAutonomous extends LinearOpMode {
             robot.frontright.setPower(speed);
             robot.backright.setPower(speed);
 
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutseconds) &&
-                    (robot.frontleft.isBusy() && robot.frontright.isBusy())) {
-
-                // Display it for the driver.
-                telemetry.addData("Path1",  "Running to %7d :%7d", frontleftTarget,  frontrightTarget);
-                telemetry.addData("Path2",  "Running at %7d :%7d",
-                        robot.frontleft.getCurrentPosition(),
-                        robot.frontright.getCurrentPosition());
-                telemetry.update();
-            }
-
             // Stop all motion;
-            robot.frontleft.setPower(0);
-            robot.backleft.setPower(0);
-            robot.frontright.setPower(0);
-            robot.backright.setPower(0);
+            MotorPower(0, 0, 0, 0);
+
         }
     }
+    private void MotorPower(double frontleftMP, double backleftMP, double frontrightMP, double backrightMP) {
+        robot.frontleft.setPower(frontleftMP);
+        robot.backleft.setPower(backleftMP);
+        robot.frontright.setPower(frontrightMP);
+        robot.backright.setPower(backrightMP);
+    }
 }
-

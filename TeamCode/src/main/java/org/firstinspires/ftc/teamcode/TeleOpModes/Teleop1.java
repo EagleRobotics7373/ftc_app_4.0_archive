@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.HardwareRobot;
 
-@TeleOp(name="Teleop 1.0")
+@TeleOp(name="Teleop 1")
 //@Disabled
-public class Teleop extends LinearOpMode {
+public class Teleop1 extends LinearOpMode {
 
     // Declare OpMode members.
     HardwareRobot robot = new HardwareRobot();
