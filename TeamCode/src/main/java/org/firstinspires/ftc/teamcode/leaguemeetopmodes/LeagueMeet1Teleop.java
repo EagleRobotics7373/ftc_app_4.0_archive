@@ -31,9 +31,13 @@ package org.firstinspires.ftc.teamcode.leaguemeetopmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_TO_POSITION;
 import static org.firstinspires.ftc.teamcode.library.functions.MathOperations.rangeClip;
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.STOP_AND_RESET_ENCODER;
+import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.RUN_USING_ENCODER;
 
 /**
  * Demonstrates empty OpMode
@@ -52,7 +56,10 @@ public class LeagueMeet1Teleop extends OpMode {
     public void init() {
         telemetry.addData("Status", "Initialized");
         robot = new LeagueMeet1Robot(hardwareMap);
-
+        robot.frontTapeMeasure.setMode(STOP_AND_RESET_ENCODER);
+        robot.backTapeMeasure.setMode(STOP_AND_RESET_ENCODER);
+        robot.frontTapeMeasure.setMode(RUN_USING_ENCODER);
+        robot.backTapeMeasure.setMode(RUN_USING_ENCODER);
 
     }
 
@@ -85,15 +92,37 @@ public class LeagueMeet1Teleop extends OpMode {
         robot.holonomic.runFromGamepadInput(gamepad1);
 
         //Tape measure spool actions
-        float frontSpoolSpeed = -rangeClip(gamepad2.left_stick_y, -1, 1);
-        float backSpoolSpeed = -rangeClip(gamepad2.right_stick_y, -1, 1);
-        robot.frontTapeMeasure.setPower(frontSpoolSpeed);
-        robot.backTapeMeasure.setPower(backSpoolSpeed);
-        telemetry.addData("Front spool speed", frontSpoolSpeed);
-        telemetry.addData("Back spool speed", backSpoolSpeed);
+        controlTapeSpoolFromInput();
 
         //Update telemetry
         telemetry.update();
+    }
+
+    @Override
+    public void stop() {
+        robot.stopAllMotors();
+    }
+
+    private void controlTapeSpoolFromInput() {
+        if(gamepad2.dpad_up) {
+            // if up button on gamepad2 is pressed: move hook up
+            robot.tapeMeasureHook.proportionalMove(1);
+        } else if (gamepad2.dpad_down) {
+            // if down button on gamepad2 is pressed: move hook down
+            robot.tapeMeasureHook.proportionalMove(-1);
+        } else if (gamepad2.left_bumper || gamepad2.right_bumper) {
+            // if either bumper on gamepad2 is pressed: give custom control of each spool motor
+            robot.frontTapeMeasure.setPower(-rangeClip(gamepad2.left_stick_y, -1, 1));
+            robot.backTapeMeasure.setPower(-rangeClip(gamepad2.right_stick_y, -1, 1));
+        } else {
+            // if no condition above is met, set power to 0
+            robot.frontTapeMeasure.setPower(0);
+            robot.backTapeMeasure.setPower(0);
+        }
+        telemetry.addData("Front spool speed", robot.frontTapeMeasure.getPower());
+        telemetry.addData("Back spool speed", robot.backTapeMeasure.getPower());
+        telemetry.addData("Front encoder", robot.frontTapeMeasure.getCurrentPosition());
+        telemetry.addData("Back encoder", robot.backTapeMeasure.getCurrentPosition());
     }
 
 }

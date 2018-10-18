@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.library.drivetrain.Holonomic;
+import org.firstinspires.ftc.teamcode.library.systems.TapeMeasureHook;
 
 public class LeagueMeet1Robot {
 
@@ -19,6 +20,8 @@ public class LeagueMeet1Robot {
 
     public Holonomic holonomic;
 
+    public TapeMeasureHook tapeMeasureHook;
+
     public LeagueMeet1Robot(HardwareMap hardwareMap) {
         frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
         backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
@@ -29,5 +32,16 @@ public class LeagueMeet1Robot {
         backTapeMeasure = hardwareMap.dcMotor.get("backTapeMeasure");
 
         holonomic = new Holonomic(frontLeftMotor, backLeftMotor,frontRightMotor,backRightMotor);
+
+        tapeMeasureHook = new TapeMeasureHook(frontTapeMeasure, backTapeMeasure);
+    }
+
+    public void stopAllMotors() {
+        frontLeftMotor.setPower(0);
+        frontRightMotor.setPower(0);
+        backLeftMotor.setPower(0);
+        backRightMotor.setPower(0);
+        frontTapeMeasure.setPower(0);
+        backTapeMeasure.setPower(0);
     }
 }
