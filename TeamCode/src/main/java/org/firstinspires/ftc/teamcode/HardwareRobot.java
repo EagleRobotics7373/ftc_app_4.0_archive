@@ -36,8 +36,8 @@ public class HardwareRobot
         backleft = hwMap.get(DcMotor.class, "backleft");
         frontright = hwMap.get(DcMotor.class, "frontright");
         backright = hwMap.get(DcMotor.class, "backright");
-        servoleft = hwMap.get(Servo.class, "servoleft");
-        servoright = hwMap.get(Servo.class, "servoright");
+        //servoleft = hwMap.get(Servo.class, "servoleft");
+        //servoright = hwMap.get(Servo.class, "servoright");
         CSright = hwMap.get(NormalizedColorSensor.class, "CSright");
         CScenter = hwMap.get(NormalizedColorSensor.class, "CScenter");
         CSleft = hwMap.get(NormalizedColorSensor.class, "CSleft");

@@ -56,7 +56,7 @@ import com.qualcomm.robotcore.hardware.SwitchableLight;
 public class SensorColor extends LinearOpMode {
 
   /** The colorSensor field will contain a reference to our color sensor hardware object */
-  NormalizedColorSensor colorSensor;
+  NormalizedColorSensor CScenter;
   /** The relativeLayout field is used to aid in providing interesting visual feedback
    * in this sample application; you probably *don't* need something analogous when you
    * use a color sensor on your robot */
@@ -105,12 +105,12 @@ public class SensorColor extends LinearOpMode {
     boolean bCurrState = false;
 
     // Get a reference to our sensor object.
-    colorSensor = hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
+    CScenter = hardwareMap.get(NormalizedColorSensor.class, "CScenter");
 
     // If possible, turn the light on in the beginning (it might already be on anyway,
     // we just make sure it is if we can).
-    if (colorSensor instanceof SwitchableLight) {
-      ((SwitchableLight)colorSensor).enableLight(true);
+    if (CScenter instanceof SwitchableLight) {
+      ((SwitchableLight)CScenter).enableLight(true);
     }
 
     // Wait for the start button to be pressed.
@@ -125,8 +125,8 @@ public class SensorColor extends LinearOpMode {
       if (bCurrState != bPrevState) {
         // If the button is (now) down, then toggle the light
         if (bCurrState) {
-          if (colorSensor instanceof SwitchableLight) {
-            SwitchableLight light = (SwitchableLight)colorSensor;
+          if (CScenter instanceof SwitchableLight) {
+            SwitchableLight light = (SwitchableLight)CScenter;
             light.enableLight(!light.isLightOn());
           }
         }
@@ -134,7 +134,7 @@ public class SensorColor extends LinearOpMode {
       bPrevState = bCurrState;
 
       // Read the sensor
-      NormalizedRGBA colors = colorSensor.getNormalizedColors();
+      NormalizedRGBA colors = CScenter.getNormalizedColors();
 
       /** Use telemetry to display feedback on the driver station. We show the conversion
        * of the colors to hue, saturation and value, and display the the normalized values
