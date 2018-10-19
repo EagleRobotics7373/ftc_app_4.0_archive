@@ -29,42 +29,31 @@
 
 package org.firstinspires.ftc.teamcode.testopmodes;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.library.functions.MathOperations;
-import org.firstinspires.ftc.teamcode.library.systems.drivetrain.Holonomic;
 
 /**
  * Demonstrates empty OpMode
  */
-@TeleOp(name = "Holonomic Test OpMode", group = "Test")
+@TeleOp(name = "Servo Test", group = "Test")
 //@Disabled
-public class HolonomicTestOpMode extends OpMode {
+public class ServoTest extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    DcMotor frontLeftMotor;
-    DcMotor backLeftMotor;
-    DcMotor frontRightMotor;
-    DcMotor backRightMotor;
+    Servo servo;
 
-    Holonomic holonomic;
-    int driveSpeed;
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
 
         // Get motors from map
-        frontLeftMotor = hardwareMap.dcMotor.get("frontLeftMotor");
-        backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
-        frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
-        backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
+        servo = hardwareMap.servo.get("teamMarkerServo");
 
-        holonomic = new Holonomic(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
-        driveSpeed = 1;
     }
 
     /*
@@ -90,14 +79,12 @@ public class HolonomicTestOpMode extends OpMode {
      */
     @Override
     public void loop(){
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Speed", driveSpeed);
-        if(gamepad1.dpad_up && driveSpeed<3) driveSpeed++;
-        if(gamepad1.dpad_down && driveSpeed>1) driveSpeed--;
-        // Run using cubic and Y reversed
-        holonomic.run(MathOperations.pow(gamepad1.left_stick_x, 3),
-                      MathOperations.pow(gamepad1.left_stick_y, 3),
-                      MathOperations.pow(gamepad1.right_stick_x, 3));
+
+            float y = gamepad1.left_trigger;
+            servo.setPosition(Math.abs(y));
+            telemetry.addData("y",y);
+
+
     }
 
 }

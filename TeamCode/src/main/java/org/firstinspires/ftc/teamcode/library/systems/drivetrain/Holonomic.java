@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.library.drivetrain;
+package org.firstinspires.ftc.teamcode.library.systems.drivetrain;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -27,7 +27,7 @@ public class Holonomic extends Drivetrain {
      *
      * @param x Forward/Reverse Motion of the Robot + is Forward - is Reverse
      * @param y Left/Right Motion of the Robot + is Right - is Left
-     * @param z Rotaion of the Robot + is Clockwise - is Counter-Clockwise
+     * @param z Rotation of the Robot + is Clockwise - is Counter-Clockwise
      */
     public void run(double x, double y, double z){
         x = MathOperations.rangeClip(x, -1, 1);
@@ -35,9 +35,9 @@ public class Holonomic extends Drivetrain {
         z = MathOperations.rangeClip(z, -1, 1);
 
         double leftFrontPower = x + y + z;
-        double leftRearPower = -x + y + z;
+        double leftRearPower = -x - y + z;
         double rightFrontPower = x - y + z;
-        double rightRearPower = -x - y + z;
+        double rightRearPower = -x + y + z;
         leftFrontMotor.setPower(leftFrontPower);
         leftRearMotor.setPower(leftRearPower);
         rightFrontMotor.setPower(rightFrontPower);

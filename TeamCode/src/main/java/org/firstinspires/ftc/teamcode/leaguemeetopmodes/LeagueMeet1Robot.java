@@ -1,14 +1,17 @@
 package org.firstinspires.ftc.teamcode.leaguemeetopmodes;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.library.drivetrain.Holonomic;
+import org.firstinspires.ftc.teamcode.library.systems.drivetrain.Holonomic;
 import org.firstinspires.ftc.teamcode.library.systems.TapeMeasureHook;
 
 public class LeagueMeet1Robot {
+
+    public static final float SERVO_POSITION_UP = 0.8f;
+    public static final float SERVO_POSITION_DOWN = 0.3f;
 
     public DcMotor frontLeftMotor;
     public DcMotor backLeftMotor;
@@ -17,6 +20,10 @@ public class LeagueMeet1Robot {
 
     public DcMotor frontTapeMeasure;
     public DcMotor backTapeMeasure;
+
+    public Servo teamMarkerServo;
+
+    public ColorSensor colorSensor;
 
     public Holonomic holonomic;
 
@@ -30,6 +37,10 @@ public class LeagueMeet1Robot {
 
         frontTapeMeasure = hardwareMap.dcMotor.get("frontTapeMeasure");
         backTapeMeasure = hardwareMap.dcMotor.get("backTapeMeasure");
+
+        teamMarkerServo = hardwareMap.servo.get("teamMarkerServo");
+
+        colorSensor = hardwareMap.colorSensor.get("colorSensor");
 
         holonomic = new Holonomic(frontLeftMotor, backLeftMotor,frontRightMotor,backRightMotor);
 
