@@ -32,5 +32,8 @@ public class TapeMeasureHook {
 
     }
 
-    private void proportionalMoveWithDirection() {}
+    public void stop() {
+        frontTapeMeasure.setPower(0);
+        backTapeMeasure.setPower(0);
+    }
 }

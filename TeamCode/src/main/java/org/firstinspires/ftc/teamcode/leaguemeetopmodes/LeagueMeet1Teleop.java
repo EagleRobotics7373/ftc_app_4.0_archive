@@ -48,7 +48,7 @@ public class LeagueMeet1Teleop extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private LeagueMeet1Robot robot;
-
+    private boolean slow = true;
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -89,7 +89,11 @@ public class LeagueMeet1Teleop extends OpMode {
         telemetry.addData("Status", "Run Time: " + runtime.toString());
 
         // Drivetrain actions
-        robot.holonomic.runFromGamepadInput(gamepad1);
+//        if(!switchXY) robot.holonomic.runFromGamepadInput(gamepad1);
+        robot.holonomic.runFromGamepadInput(gamepad1, slow?0.50f:1f);
+
+        if(gamepad1.dpad_up) slow = false;
+        else if (gamepad1.dpad_down) slow = true;
 
         //Tape measure spool actions
         controlTapeSpoolFromInput();

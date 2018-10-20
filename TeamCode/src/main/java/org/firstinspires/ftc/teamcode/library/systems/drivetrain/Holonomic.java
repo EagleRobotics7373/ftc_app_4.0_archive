@@ -49,6 +49,17 @@ public class Holonomic extends Drivetrain {
             gamepad.left_stick_y,
             gamepad.right_stick_x);
     }
+    public void runFromGamepadInput(Gamepad gamepad, float speedFactor) {
+        run(-gamepad.left_stick_x*speedFactor,
+                -gamepad.left_stick_y*speedFactor,
+                gamepad.right_stick_x*speedFactor);
+    }
+
+    public void runFromGamepadInputXYReversed(Gamepad gamepad) {
+        run(-gamepad.left_stick_x,
+                -gamepad.left_stick_y,
+                gamepad.right_stick_x);
+    }
 
     /**
      * Method to Stop the Robot
