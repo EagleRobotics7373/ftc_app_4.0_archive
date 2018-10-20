@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.leaguemeetopmodes;
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -10,8 +11,8 @@ import static org.firstinspires.ftc.teamcode.leaguemeetopmodes.LeagueMeet1Robot.
 import static org.firstinspires.ftc.teamcode.leaguemeetopmodes.LeagueMeet1Robot.SERVO_POSITION_UP;
 
 
-@Autonomous(name="Claim and Sample", group="League Meets")
-//@Disabled
+@Autonomous(name="Claim and Sample: NO LANDING", group="League Meets")
+@Disabled
 public class OldAutoSampleClaim extends LinearOpMode {
 
     private LeagueMeet1Robot robot;

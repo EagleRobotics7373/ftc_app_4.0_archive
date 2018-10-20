@@ -12,7 +12,7 @@ public abstract class AbstractLandingAuto extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot = new LeagueMeet1Robot(hardwareMap);
-        robot.teamMarkerServo.setPosition(SERVO_POSITION_UP);
+        servoStartPosition();
         land();
         doAfterLanding();
 //        robot.frontTapeMeasure.setPower(1);
@@ -30,6 +30,14 @@ public abstract class AbstractLandingAuto extends LinearOpMode {
     }
 
     abstract void doAfterLanding();
+
+    void servoStartPosition() {
+        robot.teamMarkerServo.setPosition(SERVO_POSITION_UP);
+    }
+
+    void servoDropTeamMarker() {
+
+    }
 
     void drive(double x, double y, double z, long msTime) {
         robot.holonomic.run(x, -y, z);
