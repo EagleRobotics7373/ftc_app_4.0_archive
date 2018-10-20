@@ -35,15 +35,15 @@ public class Teleop1 extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            robot.frontleft.setPower(-gamepad1.left_stick_y);
-            robot.backleft.setPower(gamepad1.left_stick_y);
-            robot.frontright.setPower(-gamepad1.left_stick_y);
-            robot.backright.setPower(gamepad1.left_stick_y);
+            robot.frontleft.setPower(gamepad1.left_stick_y);
+            robot.backleft.setPower(-gamepad1.left_stick_y);
+            robot.frontright.setPower(gamepad1.left_stick_y);
+            robot.backright.setPower(-gamepad1.left_stick_y);
 
-            robot.backleft.setPower(gamepad1.right_stick_y);
-            robot.frontleft.setPower(gamepad1.right_stick_y);
-            robot.backright.setPower(-gamepad1.right_stick_y);
-            robot.frontright.setPower(-gamepad1.right_stick_y);
+            robot.backleft.setPower(gamepad1.right_stick_x);
+            robot.frontleft.setPower(gamepad1.right_stick_x);
+            robot.backright.setPower(-gamepad1.right_stick_x);
+            robot.frontright.setPower(-gamepad1.right_stick_x);
 
             robot.leftlift.setPower(-gamepad2.left_stick_y);
             robot.rightlift.setPower(-gamepad2.right_stick_y);

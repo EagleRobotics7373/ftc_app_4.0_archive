@@ -35,8 +35,8 @@ public class Autonomous1 extends LinearOpMode {
         waitForStart();
         //encoderDrive(robot.DRIVE_SPEED, 10, 10, 10, 10, 5);
 
-        robot.leftlift.setPower(.85);
-        robot.rightlift.setPower(1);
+        //robot.leftlift.setPower(.85);
+        //robot.rightlift.setPower(1);
         sleep(13000);
 
         MotorPower(-1,-1,-1,-1);
