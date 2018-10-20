@@ -3,13 +3,9 @@ package org.firstinspires.ftc.teamcode.TeleOpModes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.HardwareRobot;
-
-import static com.qualcomm.robotcore.hardware.DcMotor.*;
-import static com.qualcomm.robotcore.hardware.DcMotorSimple.Direction.FORWARD;
 
 @TeleOp(name="Teleop 1")
 //@Disabled
@@ -39,16 +35,20 @@ public class Teleop1 extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            robot.frontleft.setPower(gamepad1.left_stick_y);
+            robot.frontleft.setPower(-gamepad1.left_stick_y);
             robot.backleft.setPower(gamepad1.left_stick_y);
-            robot.frontright.setPower(gamepad1.left_stick_y);
+            robot.frontright.setPower(-gamepad1.left_stick_y);
             robot.backright.setPower(gamepad1.left_stick_y);
 
-            robot.frontleft.setPower(-gamepad1.right_stick_x);
-            robot.backleft.setPower(-gamepad1.right_stick_x);
-            robot.frontright.setPower(gamepad1.right_stick_x);
-            robot.backright.setPower(gamepad1.right_stick_x);
+            robot.backleft.setPower(gamepad1.right_stick_y);
+            robot.frontleft.setPower(gamepad1.right_stick_y);
+            robot.backright.setPower(-gamepad1.right_stick_y);
+            robot.frontright.setPower(-gamepad1.right_stick_y);
 
+            robot.leftlift.setPower(-gamepad2.left_stick_y);
+            robot.rightlift.setPower(-gamepad2.left_stick_y);
+
+            /*
             int rightliftTarget;
             int leftliftTarget;
 
@@ -64,12 +64,9 @@ public class Teleop1 extends LinearOpMode {
             robot.rightlift.setPower(1);
             robot.leftlift.setPower(1);
 
-            robot.rightlift.setPower(0);
-            robot.rightlift.setPower(0);
-
             robot.rightlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.leftlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+            */
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();

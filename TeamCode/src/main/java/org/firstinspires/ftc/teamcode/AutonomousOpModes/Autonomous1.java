@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 import org.firstinspires.ftc.teamcode.HardwareRobot;
 
 @Autonomous(name="Autonomous1")
@@ -38,15 +38,36 @@ public class Autonomous1 extends LinearOpMode {
 
         waitForStart();
 
+        robot.leftlift.setPower(1);
+        robot.rightlift.setPower(1);
+        sleep(12000);
 
+        robot.frontleft.setPower(-1);
+        robot.backleft.setPower(-1);
+        robot.frontright.setPower(-1);
+        robot.backright.setPower(1);
+        sleep(1000);
 
-        encoderDrive(robot.DRIVE_SPEED, -14, -14, -14,
-                -14,0, 0, 5);
+        MotorPower(0,0,0,0);
+
+        encoderDrive(robot.DRIVE_SPEED, -2, 2, -2,
+                -2, 0, 0, 2);
+
+        robot.frontleft.setPower(1);
+        robot.backleft.setPower(1);
+        robot.frontright.setPower(1);
+        robot.backright.setPower(-1);
+        sleep(1000);
+
+        MotorPower(0,0,0,0);
+
+        encoderDrive(robot.DRIVE_SPEED, 12, 12, -12,
+                -12, 0, 0, 2);
 
         NormalizedRGBA color_left = robot.CSleft.getNormalizedColors();
         NormalizedRGBA color_center = robot.CScenter.getNormalizedColors();
         NormalizedRGBA color_right = robot.CSright.getNormalizedColors();
-        sleep(2000);
+        sleep(1000);
 
         if (color_left.red > color_center.red && color_left.red > color_right.red) {
             //Hit left?
@@ -67,89 +88,87 @@ public class Autonomous1 extends LinearOpMode {
             telemetry.addLine("Hit center");
             telemetry.update();
             sleep(5000);
-
         } else if (color_right.red > color_center.red && color_right.red > color_left.red) {
             //Hit right?
             MotorPower(0, 1, 0, -1);
             sleep(1000);
-            encoderDrive(robot.DRIVE_SPEED, -6, -6,-6,
+            encoderDrive(robot.DRIVE_SPEED, -6, -6, -6,
                     -6, 0, 0, 5);
 
             telemetry.addLine("Hit right");
             telemetry.update();
             sleep(5000);
         }
-
     }
+        private void MotorPower ( double frontright, double backright, double frontleft,
+        double backleft){
+            robot.frontright.setPower(frontright);
+            robot.backright.setPower(backright);
+            robot.frontleft.setPower(frontleft);
+            robot.backleft.setPower(backleft);
+        }
 
-    private void MotorPower(double frontright, double backright, double frontleft, double backleft) {
-        robot.frontright.setPower(frontright);
-        robot.backright.setPower(backright);
-        robot.frontleft.setPower(frontleft);
-        robot.backleft.setPower(backleft);
-    }
+        public void encoderDrive ( double speed, double frontleftinches, double frontrightinches,
+        double backleftinches, double backrightinches,
+        double rightliftinches, double leftliftinches, double timeoutS){
 
-    public void encoderDrive(double speed, double frontleftinches, double frontrightinches,
-                             double backleftinches, double backrightinches,
-                             double rightliftinches, double leftliftinches, double timeoutS) {
+            int frontleftTarget;
+            int backleftTarget;
+            int frontrightTarget;
+            int backrightTarget;
+            int rightliftTarget;
+            int leftliftTarget;
 
-        int frontleftTarget;
-        int backleftTarget;
-        int frontrightTarget;
-        int backrightTarget;
-        int rightliftTarget;
-        int leftliftTarget;
+            if (opModeIsActive()) {
 
-        if (opModeIsActive()) {
+                frontleftTarget = robot.frontleft.getCurrentPosition() + (int) (frontleftinches * robot.COUNTS_PER_INCH);
+                backleftTarget = robot.backleft.getCurrentPosition() + (int) (backleftinches * robot.COUNTS_PER_INCH);
+                frontrightTarget = robot.frontright.getCurrentPosition() + (int) (frontrightinches * robot.COUNTS_PER_INCH);
+                backrightTarget = robot.backright.getCurrentPosition() + (int) (backrightinches * robot.COUNTS_PER_INCH);
+                rightliftTarget = robot.rightlift.getCurrentPosition() + (int) (rightliftinches);
+                leftliftTarget = robot.leftlift.getCurrentPosition() + (int) (leftliftinches);
 
-            frontleftTarget = robot.frontleft.getCurrentPosition() + (int) (frontleftinches * robot.COUNTS_PER_INCH);
-            backleftTarget = robot.backleft.getCurrentPosition() + (int) (backleftinches * robot.COUNTS_PER_INCH);
-            frontrightTarget = robot.frontright.getCurrentPosition() + (int) (frontrightinches * robot.COUNTS_PER_INCH);
-            backrightTarget = robot.backright.getCurrentPosition() + (int) (backrightinches * robot.COUNTS_PER_INCH);
-            rightliftTarget = robot.rightlift.getCurrentPosition() + (int) (rightliftinches * robot.COUNTS_PER_INCH);
-            leftliftTarget = robot.leftlift.getCurrentPosition() + (int) (leftliftinches * robot.COUNTS_PER_INCH);
+                robot.frontleft.setTargetPosition(frontleftTarget);
+                robot.backleft.setTargetPosition(backleftTarget);
+                robot.frontright.setTargetPosition(frontrightTarget);
+                robot.backright.setTargetPosition(backrightTarget);
+                robot.rightlift.setTargetPosition(rightliftTarget);
+                robot.leftlift.setTargetPosition(leftliftTarget);
 
-            robot.frontleft.setTargetPosition(frontleftTarget);
-            robot.backleft.setTargetPosition(backleftTarget);
-            robot.frontright.setTargetPosition(frontrightTarget);
-            robot.backright.setTargetPosition(backrightTarget);
-            robot.rightlift.setTargetPosition(rightliftTarget);
-            robot.leftlift.setTargetPosition(leftliftTarget);
+                robot.frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.backleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.frontright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.backright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.rightlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                robot.leftlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            robot.frontleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backleft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.frontright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.backright.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.rightlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.leftlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                runtime.reset();
+                robot.frontleft.setPower(speed);
+                robot.backleft.setPower(speed);
+                robot.frontright.setPower(speed);
+                robot.backright.setPower(speed);
+                robot.rightlift.setPower(speed);
+                robot.leftlift.setPower(speed);
 
-            runtime.reset();
-            robot.frontleft.setPower(speed);
-            robot.backleft.setPower(speed);
-            robot.frontright.setPower(speed);
-            robot.backright.setPower(speed);
-            robot.rightlift.setPower(speed);
-            robot.leftlift.setPower(speed);
+                while (opModeIsActive() &&
+                        (runtime.seconds() < timeoutS) &&
+                        (robot.frontleft.isBusy() && robot.frontright.isBusy())) {
+                }
 
-            while (opModeIsActive() &&
-                    (runtime.seconds() < timeoutS) &&
-                    (robot.frontleft.isBusy() && robot.frontright.isBusy())) {
+                // Stop all motion
+                robot.frontleft.setPower(0);
+                robot.backleft.setPower(0);
+                robot.frontright.setPower(0);
+                robot.backright.setPower(0);
+                robot.rightlift.setPower(0);
+                robot.leftlift.setPower(0);
+
+                robot.frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.rightlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                robot.leftlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
-
-            // Stop all motion
-            robot.frontleft.setPower(0);
-            robot.backleft.setPower(0);
-            robot.frontright.setPower(0);
-            robot.backright.setPower(0);
-            robot.rightlift.setPower(0);
-            robot.leftlift.setPower(0);
-
-            robot.frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.rightlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.leftlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
-}
