@@ -46,27 +46,8 @@ public class Teleop1 extends LinearOpMode {
             robot.frontright.setPower(-gamepad1.right_stick_y);
 
             robot.leftlift.setPower(-gamepad2.left_stick_y);
-            robot.rightlift.setPower(-gamepad2.left_stick_y);
+            robot.rightlift.setPower(-gamepad2.right_stick_y);
 
-            /*
-            int rightliftTarget;
-            int leftliftTarget;
-
-            rightliftTarget = robot.leftlift.getCurrentPosition() + (int) (gamepad2.left_stick_y);
-            leftliftTarget = robot.rightlift.getCurrentPosition() + (int) (gamepad2.left_stick_y);
-
-            robot.rightlift.setTargetPosition(rightliftTarget);
-            robot.leftlift.setTargetPosition(leftliftTarget);
-
-            robot.rightlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            robot.leftlift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            robot.rightlift.setPower(1);
-            robot.leftlift.setPower(1);
-
-            robot.rightlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            robot.leftlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            */
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
