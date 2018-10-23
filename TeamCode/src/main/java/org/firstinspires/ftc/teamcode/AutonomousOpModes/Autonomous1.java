@@ -1,14 +1,12 @@
 package org.firstinspires.ftc.teamcode.AutonomousOpModes;
 
-/* Imports all the neccessary robotcore files and configured hardware in HardwareRobot. */
-
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.HardwareRobot;
+
+// Imports all the neccessary robotcore files and configured hardware in HardwareRobot.
 
 @Autonomous(name="Autonomous1")
 //@Disabled
@@ -22,7 +20,7 @@ public class Autonomous1 extends LinearOpMode {
 
         robot.init(hardwareMap);
 
-        robot.frontleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        /*robot.frontleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.frontright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.backright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -33,13 +31,11 @@ public class Autonomous1 extends LinearOpMode {
         robot.backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         waitForStart();
-        MotorPower(-1, -1, -1, -1);
-        sleep(15000);
         //encoderDrive(robot.DRIVE_SPEED, 10, 10, 10, 10, 5);
 
-        //robot.leftlift.setPower(.85);
-        //robot.rightlift.setPower(1);
-        /*sleep(13000);
+        robot.leftlift.setPower(.85);
+        robot.rightlift.setPower(1);
+        sleep(13000);
 
         MotorPower(-1,-1,-1,-1);
         sleep(250);
@@ -100,7 +96,7 @@ public class Autonomous1 extends LinearOpMode {
             sleep(5000);
             }*/
     }
-    private void MotorPower ( double frontright, double backright, double frontleft,
+    /*private void MotorPower ( double frontright, double backright, double frontleft,
                               double backleft){
         robot.frontright.setPower(frontright);
         robot.backright.setPower(backright);
@@ -155,5 +151,5 @@ public class Autonomous1 extends LinearOpMode {
             robot.frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-    }
+    }*/
 }
