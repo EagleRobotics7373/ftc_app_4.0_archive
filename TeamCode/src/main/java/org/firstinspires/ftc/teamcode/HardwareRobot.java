@@ -25,6 +25,13 @@ public class HardwareRobot
     public static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV) / (WHEEL_DIAMETER_INCHES * 3.1415);
     public static final double DRIVE_SPEED = 0.6;
 
+    /*public void ZeroPower(){
+        frontleft.setPower(0);
+        backleft.setPower(0);
+        frontright.setPower(0);
+        backright.setPower(0);
+}*/
+
     /* Constructor */
     public HardwareRobot(){
 
@@ -42,19 +49,14 @@ public class HardwareRobot
         backright = hwMap.get(DcMotor.class, "backright");*/
         rightlift = hwMap.get(DcMotor.class, "rightlift");
         leftlift = hwMap.get(DcMotor.class, "leftlift");
-        //servoleft = hwMap.get(Servo.class, "servoleft");
-        //servoright = hwMap.get(Servo.class, "servoright");
-        //CSright = hwMap.get(NormalizedColorSensor.class, "CSright");
-        //CScenter = hwMap.get(NormalizedColorSensor.class, "CScenter");
-        //CSleft = hwMap.get(NormalizedColorSensor.class, "CSleft");
+        /*servoleft = hwMap.get(Servo.class, "servoleft");
+        servoright = hwMap.get(Servo.class, "servoright");
+        CSright = hwMap.get(NormalizedColorSensor.class, "CSright");
+        CScenter = hwMap.get(NormalizedColorSensor.class, "CScenter");
+        CSleft = hwMap.get(NormalizedColorSensor.class, "CSleft");*/
 
         // Set all motors to zero power
-        /*frontleft.setPower(0);
-        backleft.setPower(0);
-        frontright.setPower(0);
-        backright.setPower(0);*/
-        rightlift.setPower(0);
-        leftlift.setPower(0);
+        //ZeroPower();
 
         /*frontleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backleft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
