@@ -18,6 +18,8 @@ public class Teleop1 extends LinearOpMode {
     @Override
     public void runOpMode() {
 
+        int liftControl = 0;
+
         robot.init(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
@@ -30,26 +32,36 @@ public class Teleop1 extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
-            /*double x = gamepad1.left_stick_x;
+            double x = gamepad1.left_stick_x;
             double y = gamepad1.left_stick_y;
             double z = gamepad1.right_stick_x;
 
-            robot.frontleft.setPower(y - x- z);
+            robot.frontleft.setPower(y - x - z);
             robot.backleft.setPower(y + x - z);
             robot.frontright.setPower(-y - x - z);
-            robot.backright.setPower(-y + x - z);*/
+            robot.backright.setPower(-y + x - z);
 
-            robot.leftlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.rightlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.leftlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            robot.leftlift.setPower(gamepad2.right_stick_y);
-            robot.rightlift.setPower(gamepad2.right_stick_y);
+            if (liftControl % 2 == 0) {
+                    robot.rightlift.setPower(gamepad2.right_stick_y);
+                    robot.leftlift.setPower(gamepad2.right_stick_y);
+            }
 
-            telemetry.addData("gamepad2 value", gamepad2.right_stick_y);
+            else if (liftControl % 2 == 1) {
+                robot.rightlift.setPower(gamepad2.right_stick_y);
+                robot.leftlift.setPower(gamepad2.left_stick_y);
+            }
+
+            if (gamepad2.y) {
+                ++liftControl;}
+
+
+
+            // Show the elapsed game time and wheel power.
+            telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.update();
         }
-        // Show the elapsed game time and wheel power.
-        telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.update();
     }
 }
