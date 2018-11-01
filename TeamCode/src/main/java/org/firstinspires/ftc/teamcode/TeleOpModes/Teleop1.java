@@ -44,6 +44,7 @@ public class Teleop1 extends LinearOpMode {
             robot.rightlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.leftlift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+            // Y button changes lifts to running with both sticks or with just one
             if (liftControl % 2 == 0) {
                     robot.rightlift.setPower(gamepad2.right_stick_y);
                     robot.leftlift.setPower(gamepad2.right_stick_y);
